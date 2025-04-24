@@ -54,6 +54,16 @@ const nextConfig = {
         source: '/api/pdf/:path*',
         destination: '/api/debug',
         permanent: false,
+      },
+      {
+        source: '/api/user/:path*',
+        destination: '/api/debug',
+        permanent: false,
+      },
+      {
+        source: '/api/stripe/prices',
+        destination: '/api/debug',
+        permanent: false,
       }
     ]
   }
