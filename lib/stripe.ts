@@ -3,17 +3,18 @@ import Stripe from 'stripe';
 // Inizializza Stripe con la chiave segreta
 const stripeKey = process.env.STRIPE_SECRET_KEY || '';
 
-if (!stripeKey) {
-  console.warn('ATTENZIONE: STRIPE_SECRET_KEY non configurata. Le funzionalità di pagamento non funzioneranno.');
-}
-
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+export const stripe = new Stripe(stripeKey, {
   apiVersion: '2023-10-16',
   appInfo: {
-    name: 'Mini AI Hub',
+    name: 'MiniAI Backend',
     version: '1.0.0',
-  },
+  }
 });
+
+// Per verificare se le credenziali sono impostate correttamente
+if (!stripeKey) {
+  console.warn('⚠️ Stripe: credenziali mancanti. Imposta STRIPE_SECRET_KEY');
+}
 
 // Funzione per gestire l'abbonamento
 export async function createCheckoutSession(priceId: string, userId: string, customerEmail: string) {

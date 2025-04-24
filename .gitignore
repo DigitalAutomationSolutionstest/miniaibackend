@@ -52,7 +52,7 @@ export default function PricingPlans() {
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-node_modules
+/node_modules
 /.pnp
 .pnp.js
 .yarn/install-state.gz
@@ -62,12 +62,10 @@ node_modules
 
 # next.js
 /.next/
-.next/
 /out/
 
 # production
-dist
-build
+/build
 
 # misc
 .DS_Store
@@ -81,9 +79,6 @@ yarn-error.log*
 # local env files
 .env*.local
 .env
-.env.*
-!.env.example
-supabase/functions/_shared/env.ts
 
 # vercel
 .vercel

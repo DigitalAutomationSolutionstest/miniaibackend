@@ -1,11 +1,53 @@
 # MiniAI Backend
 
-API backend per Mini AI Hub
+Backend API per Mini AI Hub, costruito con Next.js 14 e pronto per il deploy su Vercel.
 
-## Deploy
+## Tecnologie
 
-- Hosting: Vercel (https://api.miniaiapps.tech)
-- Stack: Next.js API Routes + Edge Functions
+- Next.js 14
+- API Routes
+- Stripe per i pagamenti
+- Supabase per il database
+- Resend per le email
+
+## Installazione
+
+1. Clona il repository
+```bash
+git clone https://github.com/DigitalAutomationSolutionstest/miniai-backend.git
+cd miniai-backend
+```
+
+2. Installa le dipendenze
+```bash
+npm install
+```
+
+3. Crea un file `.env.local` con le variabili d'ambiente necessarie
+```
+SUPABASE_URL=...
+SUPABASE_SERVICE_ROLE_KEY=...
+STRIPE_SECRET_KEY=...
+RESEND_API_KEY=...
+```
+
+4. Avvia il server di sviluppo
+```bash
+npm run dev
+```
+
+## Deploy su Vercel
+
+Per il deploy su Vercel, segui questi passaggi:
+
+1. Collega il repository GitHub a Vercel
+2. Configura le variabili d'ambiente su Vercel
+3. Imposta il dominio personalizzato `api.miniaiapps.tech` nelle impostazioni del progetto
+
+## Endpoint API
+
+- `GET /api/debug` - Verifica che il backend sia online
+- Altre API saranno documentate qui...
 
 ## API Principali
 
