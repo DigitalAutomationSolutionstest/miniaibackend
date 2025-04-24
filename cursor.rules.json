@@ -1,29 +1,31 @@
 {
-  "exclude": [
-    "node_modules",
-    ".next",
-    "public",
-    "app",
-    "pages",
-    "components",
-    "styles",
-    "tailwind.config.ts",
-    "postcss.config.js",
-    "tsconfig.json",
-    "package-lock.json",
-    "pnpm-lock.yaml",
-    "yarn.lock",
-    "*.log"
-  ],
-  "watch": [
-    "api/**/*",
-    "utils/**/*",
-    "db/**/*"
-  ],
-  "entry": [
-    "api/quote.ts",
-    "api/send-email.ts",
-    "api/stripe/checkout-subscription.ts",
-    "api/stripe/webhook.ts"
-  ]
+  "rules": {
+    "**/.env": "ignore",
+    "**/.env.*": "ignore",
+    "**/.vercel/**": "ignore",
+    "**/.next/**": "ignore",
+    "**/node_modules/**": "ignore",
+    "**/package-lock.json": "track",
+    "**/pnpm-lock.yaml": "track",
+    "**/app/api/**/route.ts": "track",
+    "**/lib/**": "track",
+    "**/components/**": "track",
+    "next.config.js": "track",
+    "vercel.json": "track",
+    "tsconfig.json": "track",
+    "package.json": "track",
+    ".gitignore": "track",
+    ".env.example": "track",
+    "README.md": "track",
+    "public/**": "track",
+    "middleware.ts": "track",
+    "tailwind.config.js": "track"
+  },
+  "meta": {
+    "projectType": "nextjs",
+    "api": true,
+    "envManagement": "vercel",
+    "deployment": "vercel",
+    "language": "typescript"
+  }
 }
