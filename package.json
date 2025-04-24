@@ -1,43 +1,13 @@
 {
-  "name": "mini-ai-hub",
+  "name": "mini-ai-hub-monorepo",
   "version": "1.0.0",
-  "description": "Backend API per Mini AI Hub",
-  "main": "app/api",
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DigitalAutomationSolutionstest/miniai-backend.git"
-  },
-  "keywords": [
-    "ai",
-    "api",
-    "nextjs",
+  "private": true,
+  "workspaces": [
     "backend"
   ],
-  "author": "Digital Automation Solutions",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/DigitalAutomationSolutionstest/miniai-backend/issues"
-  },
-  "homepage": "https://github.com/DigitalAutomationSolutionstest/miniai-backend#readme",
-  "dependencies": {
-    "next": "14.1.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "stripe": "^12.0.0",
-    "@supabase/supabase-js": "^2.39.5",
-    "resend": "^1.1.0"
-  },
-  "devDependencies": {
-    "@types/node": "^20.17.0",
-    "@types/react": "^18.2.0",
-    "typescript": "^5.0.0"
-  },
-  "engines": {
-    "node": ">=18.0.0"
+  "scripts": {
+    "backend:dev": "cd backend && npm run dev",
+    "backend:build": "cd backend && npm run build",
+    "backend:start": "cd backend && npm run start"
   }
 }

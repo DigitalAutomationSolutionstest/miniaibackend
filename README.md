@@ -1,14 +1,10 @@
-# Mini AI Hub Backend
+# Mini AI Hub Monorepo
 
-Backend API per Mini AI Hub, costruito con Next.js 14 e pronto per il deploy su Vercel.
+Monorepo per il progetto Mini AI Hub contenente backend e (in futuro) frontend.
 
-## Tecnologie
+## Struttura
 
-- Next.js 14
-- API Routes
-- Stripe per i pagamenti
-- Supabase per il database
-- Resend per le email
+- `backend/` - API Next.js per il backend
 
 ## Installazione
 
@@ -23,26 +19,36 @@ cd mini-ai-hub
 npm install
 ```
 
-3. Crea un file `.env.local` con le variabili d'ambiente necessarie
-```
-SUPABASE_URL=...
-SUPABASE_SERVICE_ROLE_KEY=...
-STRIPE_SECRET_KEY=...
-RESEND_API_KEY=...
-```
+## Avvio del backend
 
-4. Avvia il server di sviluppo
 ```bash
-npm run dev
+# Sviluppo
+npm run backend:dev
+
+# Build
+npm run backend:build
+
+# Produzione
+npm run backend:start
 ```
 
-## Deploy su Vercel
+## Backend
 
-Per il deploy su Vercel, segui questi passaggi:
+Il backend si trova nella cartella `backend/` ed è un'applicazione Next.js con:
 
-1. Collega il repository GitHub a Vercel
-2. Configura le variabili d'ambiente su Vercel
-3. Imposta il dominio personalizzato nelle impostazioni del progetto
+- API Routes in `app/api/`
+- Integrazione con Stripe e Supabase
+- Deploy su Vercel
+
+Per maggiori dettagli, consulta il [README del backend](backend/README.md).
+
+## Tecnologie
+
+- Next.js 14
+- API Routes
+- Stripe per i pagamenti
+- Supabase per il database
+- Resend per le email
 
 ## Endpoint API
 
