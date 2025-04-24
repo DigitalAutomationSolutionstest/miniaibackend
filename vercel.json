@@ -23,5 +23,10 @@
     "ANTHROPIC_API_KEY": "@anthropic_api_key",
     "EMAIL_ADMIN": "@email_admin",
     "BASE_URL": "@base_url"
-  }
+  },
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "outputDirectory": ".next"
 }
