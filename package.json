@@ -1,13 +1,50 @@
 {
-  "name": "mini-ai-hub-monorepo",
+  "name": "mini-ai-hub",
   "version": "1.0.0",
-  "private": true,
-  "workspaces": [
+  "description": "Backend API per Mini AI Hub",
+  "main": "app/api",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DigitalAutomationSolutionstest/miniaibackend.git"
+  },
+  "keywords": [
+    "ai",
+    "api",
+    "nextjs",
     "backend"
   ],
-  "scripts": {
-    "backend:dev": "cd backend && npm run dev",
-    "backend:build": "cd backend && npm run build",
-    "backend:start": "cd backend && npm run start"
+  "author": "Digital Automation Solutions",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DigitalAutomationSolutionstest/miniaibackend/issues"
+  },
+  "homepage": "https://github.com/DigitalAutomationSolutionstest/miniaibackend#readme",
+  "dependencies": {
+    "next": "14.2.28",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "stripe": "^12.0.0",
+    "@supabase/supabase-js": "^2.39.5",
+    "resend": "^1.1.0",
+    "@heroicons/react": "^2.0.18",
+    "tailwindcss": "^3.3.0",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "framer-motion": "^10.16.4",
+    "openai": "^4.28.0",
+    "zod": "^3.22.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.0",
+    "@types/react": "^18.2.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
