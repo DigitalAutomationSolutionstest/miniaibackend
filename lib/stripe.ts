@@ -7,8 +7,8 @@ if (!stripeKey) {
   console.warn('ATTENZIONE: STRIPE_SECRET_KEY non configurata. Le funzionalità di pagamento non funzioneranno.');
 }
 
-export const stripe = new Stripe(stripeKey, {
-  apiVersion: '2023-10-16' as any, // Cast per evitare problemi di tipizzazione
+export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2023-10-16',
   appInfo: {
     name: 'Mini AI Hub',
     version: '1.0.0',
