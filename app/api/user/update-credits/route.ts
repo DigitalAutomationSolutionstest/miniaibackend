@@ -1,4 +1,4 @@
-import { supabase } from "@/src/lib/supabase";
+import { createSupabaseServerClient } from "@/src/lib/supabase";
 import { getUserIdFromRequest } from "@/src/lib/auth";
 
 export async function POST(req: Request) {
@@ -6,6 +6,7 @@ export async function POST(req: Request) {
   if (!userId) return new Response("Unauthorized", { status: 401 });
 
   const { amount } = await req.json();
+  const supabase = createSupabaseServerClient();
 
   const { error } = await supabase.rpc("adjust_user_credits", {
     uid: userId,

@@ -2,8 +2,7 @@
 // Reindirizza all'implementazione corretta
 
 // Importa la vera implementazione
-import { supabase } from '@/lib/supabase';
+import { createSupabaseServerClient } from '@/lib/supabase';
 
 // Re-esporta tutto
-export { supabase };
-export default supabase; 
+export { createSupabaseServerClient }; 
