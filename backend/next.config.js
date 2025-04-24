@@ -43,6 +43,17 @@ const nextConfig = {
         source: '/error/:path*',
         destination: '/',
         permanent: false,
+      },
+      // Redireziona API con dipendenze mancanti
+      {
+        source: '/api/miniapps/:path*',
+        destination: '/api/debug',
+        permanent: false,
+      },
+      {
+        source: '/api/pdf/:path*',
+        destination: '/api/debug',
+        permanent: false,
       }
     ]
   }
