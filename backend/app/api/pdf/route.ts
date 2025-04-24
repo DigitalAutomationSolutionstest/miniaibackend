@@ -79,11 +79,8 @@ async function handler(req: NextRequest) {
   }
 }
 
-export const POST = allowCors(
-  withRateLimit(
-    withValidation(
-      schema,
-      withLogging(handler)
-    )
-  )
-); 
+// Componi i middleware correttamente
+const validatedHandler = withValidation(schema)(handler);
+const loggedHandler = withLogging(validatedHandler);
+const rateLimitedHandler = withRateLimit(loggedHandler);
+export const POST = allowCors(rateLimitedHandler); 
