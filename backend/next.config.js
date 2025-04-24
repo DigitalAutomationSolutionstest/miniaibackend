@@ -28,6 +28,23 @@ const nextConfig = {
         ],
       },
     ]
+  },
+  // Disabilita le pagine non essenziali
+  pageExtensions: ['tsx', 'ts'],
+  // Definisci i webhook solo per le API
+  redirects: async () => {
+    return [
+      {
+        source: '/dashboard/:path*',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/error/:path*',
+        destination: '/',
+        permanent: false,
+      }
+    ]
   }
 }
 
