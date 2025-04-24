@@ -28,9 +28,8 @@ export const withRateLimit = (handler: Function) => async (req: NextRequest) => 
       url: process.env.UPSTASH_REDIS_REST_URL || "",
       token: process.env.UPSTASH_REDIS_REST_TOKEN || "",
     });
-
     const current = await redis.get(key);
-    const count = current ? parseInt(current) : 0;
+    const count = current ? (typeof current === 'string' ? parseInt(current) : 0) : 0;
 
     if (count >= limit) {
       return NextResponse.json(
@@ -39,7 +38,7 @@ export const withRateLimit = (handler: Function) => async (req: NextRequest) => 
       );
     }
 
-    await redis.set(key, (count + 1).toString(), "EX", window);
+    await redis.set(key, (count + 1).toString(), { ex: window });
     return handler(req.clone());
   } catch (error) {
     console.error("Errore nel rate limiting:", error);
