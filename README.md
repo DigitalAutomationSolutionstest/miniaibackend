@@ -1,4 +1,4 @@
-# MiniAI Backend
+# Mini AI Hub Backend
 
 Backend API per Mini AI Hub, costruito con Next.js 14 e pronto per il deploy su Vercel.
 
@@ -14,8 +14,8 @@ Backend API per Mini AI Hub, costruito con Next.js 14 e pronto per il deploy su 
 
 1. Clona il repository
 ```bash
-git clone https://github.com/DigitalAutomationSolutionstest/miniai-backend.git
-cd miniai-backend
+git clone https://github.com/tuo-username/mini-ai-hub.git
+cd mini-ai-hub
 ```
 
 2. Installa le dipendenze
@@ -42,7 +42,7 @@ Per il deploy su Vercel, segui questi passaggi:
 
 1. Collega il repository GitHub a Vercel
 2. Configura le variabili d'ambiente su Vercel
-3. Imposta il dominio personalizzato `api.miniaiapps.tech` nelle impostazioni del progetto
+3. Imposta il dominio personalizzato nelle impostazioni del progetto
 
 ## Endpoint API
 
@@ -60,7 +60,7 @@ Per il deploy su Vercel, segui questi passaggi:
 ## Struttura del Progetto
 
 ```
-/miniai-backend
+/mini-ai-hub
 │
 ├── app/
 │   └── api/
@@ -80,29 +80,16 @@ Per il deploy su Vercel, segui questi passaggi:
 
 ## Variabili d'Ambiente
 
-Copia da `.env.example` e incolla nella sezione Environment Variables su Vercel.
-
 ```
 # Stripe
 STRIPE_SECRET_KEY=
-STRIPE_WEBHOOK_SECRET=
 
 # Supabase
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_URL=
 SUPABASE_SERVICE_ROLE_KEY=
 
 # Resend
 RESEND_API_KEY=
-
-# AI
-OPENAI_API_KEY=
-HUGGINGFACE_API_KEY=
-ANTHROPIC_API_KEY=
-
-# Altro
-EMAIL_ADMIN=admin@miniaiapps.tech
-BASE_URL=https://miniaiapps.tech
 ```
 
 ## Sviluppo Locale
@@ -121,14 +108,3 @@ npm run build
 ## Deployment
 
 Il deployment è automatizzato tramite Vercel. Ogni push al branch `main` attiva un nuovo deployment.
-
-Per un deployment manuale:
-
-```bash
-# Installa Vercel CLI
-npm i -g vercel
-
-# Esegui il deployment
-vercel
-```
-// trigger rebuild

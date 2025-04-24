@@ -1,5 +1,5 @@
 {
-  "name": "miniai-backend",
+  "name": "mini-ai-hub",
   "version": "1.0.0",
   "description": "Backend API per Mini AI Hub",
   "main": "app/api",
