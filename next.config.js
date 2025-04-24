@@ -10,6 +10,11 @@ const nextConfig = {
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+    ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY,
+    HUGGINGFACE_API_KEY: process.env.HUGGINGFACE_API_KEY,
+    EMAIL_ADMIN: process.env.EMAIL_ADMIN,
+    BASE_URL: process.env.BASE_URL
   },
   async headers() {
     return [
