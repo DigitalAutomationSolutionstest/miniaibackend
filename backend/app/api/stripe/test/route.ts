@@ -2,7 +2,7 @@ import Stripe from 'stripe'
 import { NextResponse } from 'next/server'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-03-31.basil',
+  apiVersion: '2022-11-15',
 })
 
 export async function GET() {
