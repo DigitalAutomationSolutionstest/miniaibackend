@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
-import { supabase } from '@/lib/supabase'
+import { createSupabaseServerClient } from '@/lib/supabase'
 
 // Verifica se la chiave API è valida
 const isStripeKeyValid = process.env.STRIPE_SECRET_KEY && 
@@ -20,6 +20,7 @@ type CheckoutParams = {
 };
 
 export async function POST(request: Request) {
+  const supabase = createSupabaseServerClient();
   try {
     const { priceId } = await request.json()
     

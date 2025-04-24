@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase";
+import { createSupabaseServerClient } from "@/lib/supabase";
 
 interface ImageRequest {
   prompt: string;
@@ -14,6 +14,7 @@ interface ImageRequest {
  */
 export async function POST(req: NextRequest) {
   try {
+    const supabase = createSupabaseServerClient();
     const body = await req.json() as ImageRequest;
     const { prompt, userId, size = '1024x1024', style = 'natural' } = body;
 

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabase } from '@/lib/supabase';
+import { createSupabaseServerClient } from '@/lib/supabase';
 
 interface PDFRequest {
   pdfUrl: string;
@@ -13,6 +13,7 @@ interface PDFRequest {
  */
 export async function POST(req: NextRequest) {
   try {
+    const supabase = createSupabaseServerClient();
     const body = await req.json() as PDFRequest;
     const { pdfUrl, userId, questions } = body;
 

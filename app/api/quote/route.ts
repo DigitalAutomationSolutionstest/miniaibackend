@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { createSupabaseServerClient } from '@/lib/supabase';
 import { Resend } from 'resend';
 
 interface QuoteRequest {
@@ -18,6 +18,7 @@ const resend = new Resend(process.env.RESEND_API_KEY || '');
  */
 export async function POST(req: NextRequest) {
   try {
+    const supabase = createSupabaseServerClient();
     const body = await req.json() as QuoteRequest;
     const { name, email, projectDescription, budget, deadline } = body;
 

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createCheckoutSession } from '@/lib/stripe';
-import { supabase } from '@/lib/supabase';
+import { createSupabaseServerClient } from '@/lib/supabase';
 
 interface RequestBody {
   priceId: string;
@@ -13,6 +13,7 @@ interface RequestBody {
  */
 export async function POST(req: NextRequest) {
   try {
+    const supabase = createSupabaseServerClient();
     const body = await req.json() as RequestBody;
     const { priceId, email } = body;
 
