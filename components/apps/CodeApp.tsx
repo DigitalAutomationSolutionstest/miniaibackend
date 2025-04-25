@@ -2,23 +2,31 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { CodeBracketIcon, ClipboardDocumentIcon } from "@heroicons/react/24/outline";
+import { CodeBracketIcon, DocumentCheckIcon } from "@heroicons/react/24/outline";
 import { API_URL } from '@/src/lib/env'
-import { supabase } from '@/src/lib/supabase'
 
 export function CodeApp() {
-  const [query, setQuery] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [prompt, setPrompt] = useState("");
   const [code, setCode] = useState("");
+  const [loading, setLoading] = useState(false);
   const [credits, setCredits] = useState<number|null>(null);
   const [error, setError] = useState("");
-  const [copied, setCopied] = useState(false);
 
-  const handleGenerate = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    // Funzionalità temporaneamente disabilitata
+    setError("La funzionalità di generazione codice è temporaneamente non disponibile. Riprova più tardi.");
+    return;
+    
+    // Codice originale commentato
+    /*
+    if (!prompt.trim()) return;
+    
     setLoading(true);
     setCode("");
     setCredits(null);
     setError("");
+
     try {
       const token = (await (window as any).supabase.auth.getSession()).data.session?.access_token;
       if (!token) {
@@ -32,7 +40,7 @@ export function CodeApp() {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
         },
-        body: JSON.stringify({ query }),
+        body: JSON.stringify({ query: prompt }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -46,12 +54,7 @@ export function CodeApp() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    */
   };
 
   return (
@@ -62,30 +65,32 @@ export function CodeApp() {
       className="bg-zinc-900 rounded-xl p-6 space-y-6"
     >
       <div>
-        <h2 className="text-xl font-semibold mb-2">Genera codice</h2>
+        <h2 className="text-xl font-semibold mb-2">Assistente Codice</h2>
         <p className="text-zinc-400 text-sm">
-          Descrivi cosa vuoi che il codice faccia
+          Descrivi cosa vuoi ottenere e riceverai il codice pronto da usare
         </p>
       </div>
 
-      <div className="space-y-4">
-        <textarea
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          rows={4}
-          className="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-4 text-white resize-none focus:outline-none focus:ring-2 focus:ring-purple-500 font-mono text-sm"
-          placeholder="Esempio: Scrivi una funzione che inverte una stringa..."
-        />
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <textarea
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            placeholder="Es. Crea un componente React che mostri un carrello della spesa"
+            className="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-4 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            rows={3}
+          />
+        </div>
 
         <button
-          onClick={handleGenerate}
-          disabled={loading || !query.trim()}
+          type="submit"
+          disabled={loading || !prompt.trim()}
           className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <CodeBracketIcon className="w-5 h-5" />
-          {loading ? "Generazione in corso..." : "Genera Codice"}
+          {loading ? "Generando codice..." : "Genera Codice"}
         </button>
-      </div>
+      </form>
 
       {error && (
         <div className="mt-4 text-red-400 text-sm">{error}</div>
@@ -95,18 +100,21 @@ export function CodeApp() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="relative"
+          className="bg-zinc-800 rounded-lg p-4"
         >
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm text-zinc-400">Risultato</span>
+          <div className="flex justify-between items-center mb-2">
+            <h3 className="text-sm font-medium text-zinc-400">Codice Generato</h3>
             <button
-              onClick={handleCopy}
-              className="text-zinc-400 hover:text-white transition-colors"
+              onClick={() => {
+                navigator.clipboard.writeText(code);
+              }}
+              className="text-purple-400 hover:text-purple-300 flex items-center text-sm"
             >
-              <ClipboardDocumentIcon className="w-5 h-5" />
+              <DocumentCheckIcon className="w-4 h-4 mr-1" />
+              Copia
             </button>
           </div>
-          <pre className="bg-zinc-800 text-green-400 p-4 rounded-lg overflow-auto text-sm font-mono whitespace-pre-wrap">
+          <pre className="text-white whitespace-pre-wrap text-sm overflow-x-auto">
             {code}
           </pre>
         </motion.div>
