@@ -1,0 +1,62 @@
+LICENZA DI UTILIZZO PER CHAT AI
+(c) 2025 Mini AI Hub - Tutti i diritti riservati
+
+TERMINI E CONDIZIONI DI UTILIZZO
+
+1. PERMESSI
+   Questa licenza ti concede i seguenti permessi:
+   
+   1.1 USO PERSONALE: Puoi utilizzare questa applicazione per scopi personali e non commerciali.
+   
+   1.2 USO COMMERCIALE: L'utilizzo di questa applicazione in un contesto aziendale o professionale 
+   è consentito solo se hai acquistato la versione Pro o Business.
+   
+   1.3 COPIA DI BACKUP: Puoi creare una copia dell'applicazione esclusivamente a scopo di backup.
+
+2. RESTRIZIONI
+   Non è consentito:
+   
+   2.1 Distribuire o ridistribuire l'applicazione a terzi.
+   
+   2.2 Modificare, decompilare, disassemblare o applicare qualsiasi tipo di reverse engineering 
+   al codice dell'applicazione.
+   
+   2.3 Rimuovere o alterare qualsiasi copyright, marchio o altro avviso proprietario.
+   
+   2.4 Utilizzare l'applicazione per generare contenuti illeciti, dannosi, offensivi o che 
+   violino i diritti di terzi.
+
+3. RESPONSABILITÀ
+   
+   3.1 L'APPLICAZIONE È FORNITA "COSÌ COM'È", SENZA GARANZIE DI ALCUN TIPO, ESPLICITE O IMPLICITE.
+   
+   3.2 IN NESSUN CASO GLI AUTORI O I TITOLARI DEL COPYRIGHT SARANNO RESPONSABILI PER QUALSIASI 
+   RECLAMO, DANNO O ALTRA RESPONSABILITÀ, DERIVANTE DA O IN CONNESSIONE CON L'APPLICAZIONE 
+   O L'USO O ALTRI RAPPORTI CON L'APPLICAZIONE.
+   
+   3.3 L'UTENTE È RESPONSABILE DI TUTTI I CONTENUTI GENERATI TRAMITE L'APPLICAZIONE.
+
+4. PRIVACY E DATI
+   
+   4.1 L'applicazione può raccogliere dati di utilizzo anonimi a scopo di miglioramento.
+   
+   4.2 Nessun dato personale viene condiviso con terze parti senza il consenso esplicito dell'utente.
+   
+   4.3 Per i dettagli completi, fare riferimento alla politica sulla privacy sul sito web.
+
+5. CESSAZIONE
+   
+   5.1 Questa licenza è valida fino alla cessazione da parte dell'utente o del licenziante.
+   
+   5.2 La licenza si intenderà cessata se l'utente non rispetta i termini e le condizioni.
+   
+   5.3 Al termine della licenza, l'utente dovrà distruggere tutte le copie dell'applicazione.
+
+6. LEGGE APPLICABILE
+   
+   6.1 Questa licenza è regolata dalle leggi italiane.
+
+Per contattare il licenziante:
+Mini AI Hub
+Email: legal@miniaiapps.tech
+Web: www.miniaiapps.tech 
