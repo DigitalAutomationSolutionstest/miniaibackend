@@ -6,6 +6,7 @@ import { headers } from "next/headers";
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
+  const supabase = createSupabaseServerClient();
   const formData = await req.formData();
   const file = formData.get("audio");
   const authHeader = headers().get("Authorization");
@@ -15,7 +16,6 @@ export async function POST(req: NextRequest) {
   }
 
   const token = authHeader.replace("Bearer ", "");
-  const supabase = createSupabaseServerClient();
   const {
     data: { user },
     error: userError,

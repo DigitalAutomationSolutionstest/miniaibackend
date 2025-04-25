@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase";
 import { Resend } from 'resend';
 
+export const dynamic = 'force-dynamic';
+
 // Verifica variabili d'ambiente
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -23,10 +25,12 @@ if (!resendApiKey || !adminEmail) {
 }
 
 const resend = new Resend(resendApiKey);
-const supabase = createSupabaseServerClient();
 
 // Funzione per creare la tabella quote_requests
 async function createQuoteRequestsTable() {
+  // ✅ istanza SOLO dentro la funzione
+  const supabase = createSupabaseServerClient();
+  
   try {
     const { data, error } = await supabase.from('quote_requests').select('id').limit(1);
     
@@ -73,9 +77,10 @@ async function createQuoteRequestsTable() {
   }
 }
 
-export const dynamic = 'force-dynamic';
-
 export async function POST(req: NextRequest) {
+  // ✅ istanza SOLO dentro l'handler
+  const supabase = createSupabaseServerClient();
+  
   try {
     const { name, email, message } = await req.json();
 

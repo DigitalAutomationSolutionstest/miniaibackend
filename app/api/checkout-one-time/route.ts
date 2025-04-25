@@ -2,13 +2,16 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createSupabaseServerClient } from "@/lib/supabase";
 
+export const dynamic = 'force-dynamic';
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2022-11-15",
 });
 
-const supabase = createSupabaseServerClient();
-
 export async function POST(req: Request) {
+  // ✅ istanza SOLO dentro l'handler
+  const supabase = createSupabaseServerClient();
+  
   try {
     const { priceId, userId } = await req.json();
 
