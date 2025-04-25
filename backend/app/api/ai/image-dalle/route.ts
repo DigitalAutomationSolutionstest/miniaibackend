@@ -2,11 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { headers } from "next/headers";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
-
 console.log("ENV – OPENAI_API_KEY:", process.env.OPENAI_API_KEY);
 
 export async function POST(req: NextRequest) {
@@ -16,6 +11,12 @@ export async function POST(req: NextRequest) {
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return NextResponse.json({ error: "Non autorizzato" }, { status: 401 });
   }
+
+  // Crea il client Supabase all'interno della funzione
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
 
   const token = authHeader.replace("Bearer ", "");
   const {
