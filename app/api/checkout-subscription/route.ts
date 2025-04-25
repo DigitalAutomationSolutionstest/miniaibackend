@@ -37,13 +37,13 @@ export async function POST(req: Request) {
           quantity: 1,
         },
       ],
-      mode: "payment",
+      mode: "subscription",
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/error?message=Pagamento annullato`,
       metadata: {
         user_id: userId,
         price_id: priceId,
-        type: "one_time"
+        type: "subscription"
       },
     });
 
@@ -55,7 +55,7 @@ export async function POST(req: Request) {
       amount: price.unit_amount,
       currency: price.currency,
       status: "pending",
-      type: "one_time",
+      type: "subscription",
       created_at: new Date().toISOString()
     });
 
