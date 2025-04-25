@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { createSupabaseServerClient } from "@/lib/supabase";
 import { Resend } from 'resend';
 
 // Verifica variabili d'ambiente
@@ -23,11 +23,7 @@ if (!resendApiKey || !adminEmail) {
 }
 
 const resend = new Resend(resendApiKey);
-const supabase = createClient(supabaseUrl!, supabaseServiceKey!, {
-  db: { 
-    schema: 'public'
-  }
-});
+const supabase = createSupabaseServerClient();
 
 // Funzione per creare la tabella quote_requests
 async function createQuoteRequestsTable() {
@@ -76,6 +72,8 @@ async function createQuoteRequestsTable() {
     return false;
   }
 }
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
   try {

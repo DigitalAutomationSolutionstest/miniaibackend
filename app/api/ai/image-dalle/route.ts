@@ -1,13 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { createSupabaseServerClient } from "@/lib/supabase";
 import { headers } from "next/headers";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
-
 console.log("ENV – OPENAI_API_KEY:", process.env.OPENAI_API_KEY);
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
   const { prompt } = await req.json();
@@ -18,6 +15,7 @@ export async function POST(req: NextRequest) {
   }
 
   const token = authHeader.replace("Bearer ", "");
+  const supabase = createSupabaseServerClient();
   const {
     data: { user },
     error: userError,

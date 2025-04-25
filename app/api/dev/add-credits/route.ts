@@ -1,16 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { createSupabaseServerClient } from "@/lib/supabase";
 import { headers } from "next/headers";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
   if (process.env.NODE_ENV !== "development") {
     return NextResponse.json({ error: "Route disponibile solo in sviluppo" }, { status: 403 });
   }
+
+  const supabase = createSupabaseServerClient();
 
   const authHeader = headers().get("Authorization");
   if (!authHeader || !authHeader.startsWith("Bearer ")) {

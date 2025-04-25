@@ -1,23 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { createSupabaseServerClient } from "@/lib/supabase";
 import { getUserFromToken } from "@/utils/auth";
 import { deductCredits } from "@/utils/credits";
 import { OpenAI } from "openai";
 
-const createSupabaseClient = () => {
-  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-    throw new Error('Supabase credentials are missing');
-  }
-
-  return createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-  );
-};
-
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: NextRequest) {
+  const supabase = createSupabaseServerClient();
   const { text } = await req.json();
   const token = req.headers.get("Authorization")?.replace("Bearer ", "");
   const user = await getUserFromToken(token);

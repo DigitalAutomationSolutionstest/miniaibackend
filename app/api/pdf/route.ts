@@ -1,19 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { allowCors, withRateLimit, withValidation, withLogging } from "@/utils/middleware";
 import { z } from "zod";
-import { createClient } from "@supabase/supabase-js";
+import { createSupabaseServerClient } from "@/lib/supabase";
 import OpenAI from "openai";
-
-const createSupabaseClient = () => {
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-    throw new Error('Supabase credentials are missing');
-  }
-
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-  );
-};
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -28,7 +17,7 @@ const schema = z.object({
 
 async function handler(req: NextRequest) {
   const { fileUrl, userId, apiKey, prompt } = await req.json();
-  const supabase = createSupabaseClient();
+  const supabase = createSupabaseServerClient();
 
   // Verifica crediti utente
   const { data: credits, error: creditsError } = await supabase

@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { createSupabaseServerClient } from "@/lib/supabase";
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
@@ -15,11 +17,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Token mancante" }, { status: 401 });
   }
 
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    { global: { headers: { Authorization: `Bearer ${token}` } } }
-  );
+  const supabase = createSupabaseServerClient();
 
   const { data: { user }, error: userError } = await supabase.auth.getUser();
 
