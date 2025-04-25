@@ -1,50 +1,28 @@
 {
-  "name": "mini-ai-hub",
+  "name": "miniai-backend",
   "version": "1.0.0",
-  "description": "Backend API per Mini AI Hub",
-  "main": "app/api",
+  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DigitalAutomationSolutionstest/miniaibackend.git"
-  },
-  "keywords": [
-    "ai",
-    "api",
-    "nextjs",
-    "backend"
-  ],
-  "author": "Digital Automation Solutions",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/DigitalAutomationSolutionstest/miniaibackend/issues"
-  },
-  "homepage": "https://github.com/DigitalAutomationSolutionstest/miniaibackend#readme",
   "dependencies": {
-    "@heroicons/react": "^2.0.18",
-    "@supabase/supabase-js": "^2.39.5",
-    "autoprefixer": "^10.4.16",
-    "framer-motion": "^10.16.4",
-    "next": "14.2.28",
-    "openai": "^4.28.0",
-    "postcss": "^8.4.31",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "resend": "^3.0.0",
-    "stripe": "^12.0.0",
-    "tailwindcss": "^3.3.0",
-    "zod": "^3.22.2"
+    "@supabase/auth-helpers-nextjs": "^0.8.1",
+    "@supabase/supabase-js": "^2.39.0",
+    "next": "14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "resend": "^2.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.17.0",
+    "@types/node": "^20.10.0",
     "@types/react": "^18.2.0",
-    "eslint": "^9.25.1",
-    "eslint-config-next": "^15.3.1",
-    "typescript": "^5.0.0"
+    "@types/react-dom": "^18.2.0",
+    "eslint": "^8.55.0",
+    "eslint-config-next": "14.0.0",
+    "typescript": "^5.3.0"
   },
   "engines": {
     "node": ">=18.0.0"
