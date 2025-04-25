@@ -1,0 +1,44 @@
+Mini AI Hub - Licenza d'Uso
+
+Copyright (c) 2025 Digital Automation Solutions - Tutti i diritti riservati
+
+AUDIO TRANSCRIBER - TERMINI E CONDIZIONI DI LICENZA
+
+Questa applicazione è concessa in licenza secondo i seguenti termini:
+
+1. CONCESSIONE DI LICENZA:
+   - Uso personale consentito senza restrizioni.
+   - Uso commerciale consentito solo con licenza estesa.
+   - Una licenza per singolo utente consente l'installazione su max 2 dispositivi personali.
+
+2. RESTRIZIONI:
+   - È vietata la redistribuzione senza autorizzazione scritta.
+   - È vietato decompilare, disassemblare o modificare il codice sorgente.
+   - È vietato utilizzare l'applicazione per scopi illegali o non etici.
+   - È vietato rimuovere o alterare qualsiasi avviso di copyright, marchio o altra proprietà.
+
+3. LIMITAZIONE DI RESPONSABILITÀ:
+   - L'applicazione è fornita "COSÌ COM'È", senza garanzie di alcun tipo.
+   - Mini AI Hub non è responsabile per eventuali danni diretti, indiretti, incidentali
+     o consequenziali derivanti dall'uso dell'applicazione.
+   - La correttezza delle trascrizioni non è garantita e l'utente è tenuto a verificarle.
+
+4. PRIVACY E DATI:
+   - L'applicazione può raccogliere dati sull'utilizzo per migliorare il servizio.
+   - I file audio elaborati localmente non vengono trasmessi a terzi senza consenso.
+   - Se si utilizzano modelli cloud, i file audio vengono trasmessi temporaneamente 
+     al fornitore del servizio AI per l'elaborazione.
+
+5. AGGIORNAMENTI:
+   - Mini AI Hub può fornire aggiornamenti all'applicazione che l'utente è tenuto
+     ad installare per mantenere la compatibilità e la sicurezza.
+
+6. CESSAZIONE:
+   - Questa licenza è valida fino alla sua cessazione.
+   - La licenza termina automaticamente se l'utente non rispetta uno qualsiasi dei termini.
+   - Al termine, l'utente deve cessare l'uso e distruggere tutte le copie dell'applicazione.
+
+Per licenze commerciali o personalizzate, contattare:
+info.digitalautomationsolutions@gmail.com
+
+Fine licenza. 
