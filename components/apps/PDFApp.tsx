@@ -1,129 +1,167 @@
-'use client'
+"use client"
 
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { DocumentTextIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline'
+import { DocumentTextIcon, ArrowUpTrayIcon } from '@heroicons/react/24/outline'
 import { API_URL } from '@/src/lib/env'
-import { supabase } from '@/src/lib/supabase'
 
 export function PDFApp() {
-  const [text, setText] = useState('')
-  const [isGenerating, setIsGenerating] = useState(false)
-  const [report, setReport] = useState('')
-  const [credits, setCredits] = useState<number|null>(null)
+  const [file, setFile] = useState<File | null>(null)
+  const [question, setQuestion] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [result, setResult] = useState('')
+  const [credits, setCredits] = useState<number | null>(null)
   const [error, setError] = useState('')
 
-  const handleGenerate = async () => {
-    setIsGenerating(true)
-    setReport('')
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const selectedFile = e.target.files[0]
+      if (selectedFile.type !== 'application/pdf') {
+        setError('Per favore carica un file PDF valido')
+        return
+      }
+      if (selectedFile.size > 10 * 1024 * 1024) {
+        setError('Il file non deve superare i 10MB')
+        return
+      }
+      setFile(selectedFile)
+      setError('')
+    }
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    // Funzionalità temporaneamente disabilitata
+    setError('La funzionalità di analisi PDF è temporaneamente non disponibile. Riprova più tardi.')
+    return
+    
+    // Codice originale commentato
+    /*
+    if (!file) return
+    
+    setLoading(true)
+    setResult('')
     setCredits(null)
     setError('')
+
+    const formData = new FormData()
+    formData.append('file', file)
+    if (question) formData.append('question', question)
+
     try {
       const token = (await (window as any).supabase.auth.getSession()).data.session?.access_token
       if (!token) {
-        setError('Utente non autenticato.');
-        setIsGenerating(false)
+        setError('Utente non autenticato.')
+        setLoading(false)
         return
       }
       const res = await fetch(`${API_URL}/api/ai/pdf`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify({ input: text }),
+        body: formData,
       })
+      
       const data = await res.json()
+      
       if (!res.ok) {
-        setError(data.error || 'Errore generazione report')
+        setError(data.message || 'Errore durante l\'analisi del PDF')
       } else {
-        setReport(data.result)
-        if (typeof data.credits === 'number') setCredits(data.credits)
+        setResult(question 
+          ? data.answer 
+          : data.summary)
+        if (typeof data.remainingCredits === 'number') {
+          setCredits(data.remainingCredits)
+        }
       }
     } catch (err) {
       setError('Errore di rete o server')
     } finally {
-      setIsGenerating(false)
+      setLoading(false)
     }
-  }
-
-  const handleDownload = () => {
-    if (report) {
-      const a = document.createElement('a')
-      a.href = report
-      a.download = 'report.pdf'
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
-    }
+    */
   }
 
   return (
-    <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="bg-zinc-900 rounded-xl p-6"
-      >
-        <div className="mb-6">
-          <h2 className="text-xl font-semibold mb-2">Inserisci il testo</h2>
-          <p className="text-zinc-400 text-sm">
-            Incolla o scrivi il testo da cui generare il report PDF
-          </p>
-        </div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="bg-zinc-900 rounded-xl p-6 space-y-6"
+    >
+      <div>
+        <h2 className="text-xl font-semibold mb-2">Analisi PDF</h2>
+        <p className="text-zinc-400 text-sm">
+          Carica un PDF per estrarre informazioni o porre domande specifiche sul contenuto
+        </p>
+      </div>
 
-        <textarea
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder="Inserisci il testo da analizzare..."
-          className="w-full h-48 bg-zinc-800 text-white rounded-lg p-4 mb-4 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
-        />
-
-        <div className="flex justify-end space-x-4">
-          <button
-            onClick={handleGenerate}
-            disabled={isGenerating || !text.trim()}
-            className="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="border-2 border-dashed border-zinc-700 rounded-lg p-8 text-center">
+          <input
+            type="file"
+            accept="application/pdf"
+            onChange={handleFileChange}
+            className="hidden"
+            id="pdf-upload"
+          />
+          <label
+            htmlFor="pdf-upload"
+            className="cursor-pointer flex flex-col items-center"
           >
-            {isGenerating ? (
-              "Generazione in corso..."
-            ) : (
-              <>
-                <DocumentTextIcon className="w-5 h-5" />
-                Genera Report
-              </>
-            )}
-          </button>
-
-          {report && (
-            <button
-              onClick={handleDownload}
-              className="bg-zinc-700 hover:bg-zinc-600 text-white py-2 px-4 rounded-lg transition-colors flex items-center gap-2"
-            >
-              <ArrowDownTrayIcon className="w-5 h-5" />
-              Scarica PDF
-            </button>
-          )}
+            <ArrowUpTrayIcon className="w-12 h-12 text-zinc-400 mb-4" />
+            <p className="text-lg font-medium mb-2">
+              {file ? file.name : 'Trascina qui il tuo PDF o clicca per selezionarlo'}
+            </p>
+            <p className="text-sm text-zinc-400">
+              PDF fino a 10MB
+            </p>
+          </label>
         </div>
 
-        {error && (
-          <div className="mt-4 text-red-400 text-sm">{error}</div>
-        )}
+        <div>
+          <input
+            type="text"
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+            placeholder="Domanda facoltativa (es. 'Quali sono i punti chiave?')"
+            className="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-4 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+          />
+        </div>
 
-        {report && (
-          <div className="mt-8">
-            <h3 className="text-lg font-bold mb-2">Report generato</h3>
-            <pre className="bg-zinc-800 text-white p-4 rounded whitespace-pre-wrap text-sm max-h-96 overflow-auto">{report}</pre>
-          </div>
-        )}
+        <button
+          type="submit"
+          disabled={loading || !file}
+          className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <DocumentTextIcon className="w-5 h-5" />
+          {loading ? 'Analisi in corso...' : 'Analizza PDF'}
+        </button>
+      </form>
 
-        {typeof credits === 'number' && (
-          <div className="mt-4 text-right text-zinc-400 text-sm">
-            Crediti residui: <span className="font-bold text-white">{credits}</span>
-          </div>
-        )}
-      </motion.div>
-    </div>
+      {error && (
+        <div className="mt-4 text-red-400 text-sm">{error}</div>
+      )}
+
+      {result && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-zinc-800 rounded-lg p-4"
+        >
+          <h3 className="text-sm font-medium text-zinc-400 mb-2">Risultato</h3>
+          <p className="text-white whitespace-pre-wrap text-sm">
+            {result}
+          </p>
+        </motion.div>
+      )}
+
+      {typeof credits === 'number' && (
+        <div className="mt-4 text-right text-zinc-400 text-sm">
+          Crediti residui: <span className="font-bold text-white">{credits}</span>
+        </div>
+      )}
+    </motion.div>
   )
 } 

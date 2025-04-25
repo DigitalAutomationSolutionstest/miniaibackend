@@ -2,51 +2,66 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { PhotoIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
-import { supabase } from "@/src/lib/supabase";
-import { generateImage } from "@/src/lib/api";
-
-const MODELS = [
-  { label: "Stable Diffusion (HuggingFace)", value: "huggingface" },
-  { label: "DALL·E (OpenAI)", value: "dalle" },
-];
+import { PhotoIcon } from "@heroicons/react/24/outline";
+import { API_URL } from '@/src/lib/env'
 
 export function ImageApp() {
   const [prompt, setPrompt] = useState("");
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
   const [credits, setCredits] = useState<number | null>(null);
   const [error, setError] = useState("");
-  const [model, setModel] = useState("huggingface");
-  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const handleGenerate = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    // Funzionalità temporaneamente disabilitata
+    setError("La funzionalità di generazione immagini è temporaneamente non disponibile. Riprova più tardi.");
+    return;
+    
+    // Codice originale commentato
+    /*
+    if (!prompt.trim()) return;
+    
     setLoading(true);
-    setImageUrl("");
-    setCredits(null);
     setError("");
+    setImageUrl(null);
+
     try {
-      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-      if (sessionError || !session) {
+      const token = (await (window as any).supabase.auth.getSession()).data.session?.access_token;
+      if (!token) {
         setError("Utente non autenticato.");
+        setLoading(false);
         return;
       }
 
-      const { data } = await generateImage({ 
-        prompt,
-        model: model as 'huggingface' | 'dalle'
+      const res = await fetch(`${API_URL}/api/ai/image`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({ 
+          prompt,
+          userId: (await (window as any).supabase.auth.getUser()).data.user?.id
+        }),
       });
 
-      setImageUrl(data.image);
-      if (typeof data.credits === "number") {
-        setCredits(data.credits);
+      const data = await res.json();
+      
+      if (!res.ok) {
+        setError(data.message || "Errore nella generazione dell'immagine");
+      } else {
+        setImageUrl(data.imageUrl);
+        if (typeof data.remainingCredits === 'number') {
+          setCredits(data.remainingCredits);
+        }
       }
     } catch (err) {
-      setError("Errore di rete o server");
-      console.error("[ImageApp] Errore:", err);
+      setError("Errore di connessione");
     } finally {
       setLoading(false);
     }
+    */
   };
 
   return (
@@ -57,64 +72,30 @@ export function ImageApp() {
       className="bg-zinc-900 rounded-xl p-6 space-y-6"
     >
       <div>
-        <h2 className="text-xl font-semibold mb-2">Genera un'immagine</h2>
+        <h2 className="text-xl font-semibold mb-2">Generazione Immagini</h2>
         <p className="text-zinc-400 text-sm">
-          Descrivi l'immagine che vuoi generare e scegli il modello AI
+          Descrivi l'immagine che desideri e l'AI la creerà per te
         </p>
       </div>
 
-      <div className="space-y-4">
-        <div className="relative">
-          <button
-            type="button"
-            className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-left text-white flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-purple-500"
-            onClick={() => setDropdownOpen((v) => !v)}
-            aria-haspopup="listbox"
-            aria-expanded={dropdownOpen}
-          >
-            <span>{MODELS.find((m) => m.value === model)?.label}</span>
-            <ChevronDownIcon className="w-5 h-5 text-zinc-400" />
-          </button>
-          {dropdownOpen && (
-            <ul
-              className="absolute z-10 mt-2 w-full bg-zinc-800 border border-zinc-700 rounded-lg shadow-lg"
-              role="listbox"
-            >
-              {MODELS.map((m) => (
-                <li
-                  key={m.value}
-                  className={`px-4 py-2 cursor-pointer hover:bg-zinc-700 text-white ${model === m.value ? "bg-zinc-700" : ""}`}
-                  onClick={() => {
-                    setModel(m.value);
-                    setDropdownOpen(false);
-                  }}
-                  role="option"
-                  aria-selected={model === m.value}
-                >
-                  {m.label}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-
+      <form onSubmit={handleSubmit} className="space-y-4">
         <textarea
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
-          rows={4}
-          className="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-4 text-white resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
-          placeholder="Esempio: Un robot seduto su una panchina futuristica..."
+          placeholder="Es. Un gatto che indossa una corona in stile rinascimentale..."
+          className="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-4 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+          rows={3}
         />
 
         <button
-          onClick={handleGenerate}
+          type="submit"
           disabled={loading || !prompt.trim()}
           className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <PhotoIcon className="w-5 h-5" />
-          {loading ? "Generazione in corso..." : "Genera Immagine"}
+          {loading ? "Generando immagine..." : "Genera Immagine"}
         </button>
-      </div>
+      </form>
 
       {error && (
         <div className="mt-4 text-red-400 text-sm">{error}</div>
@@ -122,15 +103,19 @@ export function ImageApp() {
 
       {imageUrl && (
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="mt-6"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="overflow-hidden rounded-lg"
         >
-          <img src={imageUrl} alt="Immagine generata" className="w-full rounded-lg shadow-lg" />
+          <img
+            src={imageUrl}
+            alt="Immagine generata"
+            className="w-full h-auto object-cover rounded-lg"
+          />
         </motion.div>
       )}
 
-      {typeof credits === "number" && (
+      {typeof credits === 'number' && (
         <div className="mt-4 text-right text-zinc-400 text-sm">
           Crediti residui: <span className="font-bold text-white">{credits}</span>
         </div>
