@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { MicrophoneIcon, ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 import { API_URL } from '@/src/lib/env'
-import { supabase } from '@/src/lib/supabase'
 
 export function AudioApp() {
   const [file, setFile] = useState<File | null>(null);
@@ -14,6 +13,12 @@ export function AudioApp() {
   const [error, setError] = useState("");
 
   const handleUpload = async () => {
+    // Funzionalità temporaneamente disabilitata
+    setError("La funzionalità di trascrizione audio è temporaneamente non disponibile. Riprova più tardi.");
+    return;
+    
+    // Codice originale commentato
+    /*
     if (!file) return;
     setLoading(true);
     setTranscript("");
@@ -49,6 +54,7 @@ export function AudioApp() {
     } finally {
       setLoading(false);
     }
+    */
   };
 
   return (
