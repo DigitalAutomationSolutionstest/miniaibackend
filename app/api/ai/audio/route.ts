@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase";
 import { headers } from "next/headers";
 
+/** evita l'esecuzione in fase di build  */
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
   const file = formData.get("audio");
